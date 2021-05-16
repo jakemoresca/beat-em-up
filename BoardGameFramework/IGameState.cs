@@ -5,12 +5,13 @@ using System.Collections.Generic;
 
 namespace BoardGameFramework
 {
-    public interface IGameState
-    {
-        IDictionary<string, Unit> PlayerUnits { get; }
-        RoundState RoundState { get; }
-        DiceState DiceState { get; }
-        IEnumerable<string> GamePhases { get; }
-        string CurrentGamePhase { get; }
-    }
+	public interface IGameState
+	{
+		IDictionary<string, Unit> PlayerUnits { get; }
+		RoundState RoundState { get; }
+		DiceState DiceState { get; }
+		IEnumerable<string> GamePhases { get; }
+		string CurrentGamePhase { get; }
+		IGameState Clone();
+	}
 }

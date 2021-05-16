@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BoardGameFramework.Dices
 {
@@ -16,6 +17,13 @@ namespace BoardGameFramework.Dices
         public string CurrentDice { get; }
         public DicePhase CurrentDicePhase { get; }
         public string RolledValue { get; }
+
+        public DiceState Clone()
+        {
+            var dicesData = DicesData.ToDictionary(entry => entry.Key, entry => entry.Value);
+
+            return new DiceState(dicesData, CurrentDice, CurrentDicePhase, RolledValue);
+        }
     }
 
     public class DiceData

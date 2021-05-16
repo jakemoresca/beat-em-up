@@ -10,6 +10,7 @@ namespace BoardGameFramework
 		private IGameState _gameState;
 		private ActionManager _actionManager;
 		private DiceManager _diceManager;
+		private GameStateBuilder _gameStateBuilder;
 
 		public void StartBoardGame(IGameState gameState)
 		{
@@ -17,6 +18,7 @@ namespace BoardGameFramework
 
 			_actionManager = new ActionManager(UpdateState);
 			_diceManager = new DiceManager(_actionManager);
+			_gameStateBuilder = new GameStateBuilder(GetState);
 		}
 
 		public void RegisterAction(BaseAction action)
@@ -33,5 +35,6 @@ namespace BoardGameFramework
 		public IGameState GetState() => _gameState;
 		public ActionManager GetActionManager() => _actionManager;
 		public DiceManager GetDiceManager() => _diceManager;
+		public GameStateBuilder GetGameStateBuilder() => _gameStateBuilder;
 	}
 }
