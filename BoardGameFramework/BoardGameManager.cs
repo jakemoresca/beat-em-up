@@ -17,7 +17,7 @@ namespace BoardGameFramework
 			_gameState = gameState;
 
 			_actionManager = new ActionManager(UpdateState);
-			_diceManager = new DiceManager(_actionManager);
+			_diceManager = new DiceManager(_actionManager, this);
 			_gameStateBuilder = new GameStateBuilder(GetState);
 		}
 
@@ -29,6 +29,7 @@ namespace BoardGameFramework
 		private IGameState UpdateState(IGameState newState)
 		{
 			_gameState = newState;
+			
 			return _gameState;
 		}
 

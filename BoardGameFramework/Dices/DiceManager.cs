@@ -6,14 +6,27 @@ namespace BoardGameFramework.Dices
     {
         private readonly ActionManager _actionManager;
 
-        public DiceManager(ActionManager actionManager)
+        public DiceManager(ActionManager actionManager, BoardGameManager boardGameManager)
         {
             _actionManager = actionManager;
+
+            RegisterDiceActions(boardGameManager);
         }
 
-        public void AddDice(string name, string dicePath)
+        private void RegisterDiceActions(BoardGameManager boardGameManager)
         {
-            var args = new[] { new SimpleValue(name), new SimpleValue(dicePath) };
+            var diceActions = DiceActions.GetDiceActions(boardGameManager);
+
+            foreach (var diceAction in diceActions)
+            {
+                _actionManager.RegisterAction(diceAction);
+            }
+        }
+
+        public void AddDice(string name, string dicePath, string[] diceNames, int[] diceArtAngles, string[] diceArts)
+        {
+            var args = new[] { new SimpleValue(name), new SimpleValue(dicePath), new SimpleValue(diceNames), 
+                new SimpleValue(diceArtAngles), new SimpleValue(diceArts) };
 
             _actionManager.InvokeAction(BaseActionNames.AddDice, args);
         }

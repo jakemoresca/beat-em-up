@@ -28,7 +28,17 @@ namespace BoardGameFramework.Dices
 
     public class DiceData
     {
+        public DiceData(string name, string dicePath, string[] diceNames, int[] diceArtAngles, string[] diceArts)
+        {
+            Name = name;
+            DicePath = dicePath;
+            DiceNames = diceNames;
+            DiceArtAngles = diceArtAngles;
+            DiceArts = diceArts;
+        }
+
         public string Name { get; }
+        public string DicePath { get; }
         public string[] DiceNames { get; }
         public int[] DiceArtAngles { get; }
         public string[] DiceArts { get; }

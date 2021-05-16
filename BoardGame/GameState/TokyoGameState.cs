@@ -15,7 +15,8 @@ namespace ProjectTokyo
 			RoundState roundState, 
 			string currentGamePhase, 
 			DiceState diceState,
-			int score) : base(playerUnits, roundState, currentGamePhase, diceState)
+			int currentPlayerNumber,
+			int score) : base(playerUnits, roundState, currentGamePhase, diceState, currentPlayerNumber)
 		{
 			Score = score; 
 		}
@@ -24,7 +25,7 @@ namespace ProjectTokyo
 
 		public override IGameState Clone()
 		{
-			return new TokyoGameState(PlayerUnits, RoundState, CurrentGamePhase, DiceState, Score);
+			return new TokyoGameState(PlayerUnits, RoundState, CurrentGamePhase, DiceState, CurrentPlayerNumber, Score);
 		}
     }
 }

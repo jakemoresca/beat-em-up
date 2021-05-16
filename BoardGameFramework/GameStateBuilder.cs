@@ -18,6 +18,7 @@ namespace BoardGameFramework
         private IEnumerable<string> GamePhases { get; set; }
         private string CurrentGamePhase { get; set; }
         private DiceState DiceState { get; set; }
+        private int CurrentPlayerNumber { get; set; }
 
         public GameStateBuilder Initialize()
         {
@@ -39,6 +40,7 @@ namespace BoardGameFramework
             return this;
         }
 
-        public IGameState Build() => new GameState(PlayerUnits, RoundState, CurrentGamePhase, DiceState);
+        public IGameState Build() => new GameState(PlayerUnits, RoundState, CurrentGamePhase,
+            DiceState, CurrentPlayerNumber);
     }
 }
