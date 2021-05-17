@@ -17,6 +17,7 @@ namespace BoardGameFramework.Dices
 		private const string HIDDEN_COLOR = "00ffffff";
 		private const string VISIBLE_COLOR = "ffffffff";
 		private BoardGameManager _gameManager;
+		private string _listenerName;
 
 		public override void _Ready()
 		{
@@ -32,6 +33,8 @@ namespace BoardGameFramework.Dices
 			_random.Randomize();
 
 			_rollButton.Connect("pressed", this, "_on_Button_pressed");
+
+			_listenerName = $"DICE_{this.GetInstanceId()}";
 		}
 
 		private void _on_Button_pressed()

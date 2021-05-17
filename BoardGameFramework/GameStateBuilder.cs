@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BoardGameFramework.Boards;
 using BoardGameFramework.Dices;
 
 namespace BoardGameFramework
@@ -13,7 +14,7 @@ namespace BoardGameFramework
             _getStateAction = getStateAction;
         }
 
-        private IDictionary<string, Unit> PlayerUnits { get; set; }
+        private IDictionary<string, BoardUnit> PlayerUnits { get; set; }
         private RoundState RoundState { get; set; }
         private IEnumerable<string> GamePhases { get; set; }
         private string CurrentGamePhase { get; set; }

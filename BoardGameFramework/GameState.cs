@@ -1,22 +1,23 @@
 using System.Collections.Generic;
 using BoardGameFramework.Dices;
+using BoardGameFramework.Boards;
 
 namespace BoardGameFramework
 {
     public class GameState : IGameState
     {
         private RoundState _roundState;
-        private IDictionary<string, Unit> _playerUnits;
+        private IDictionary<string, BoardUnit> _playerUnits;
 
         public GameState() : this(
-            new Dictionary<string, Unit>(),
+            new Dictionary<string, BoardUnit>(),
             new RoundState(0, 0),
             "GAME_START",
             new DiceState(new Dictionary<string, DiceData>(), string.Empty, DicePhase.Hidden, string.Empty),
 			1)
         { }
 
-        public GameState(IDictionary<string, Unit> playerUnits, RoundState roundState, 
+        public GameState(IDictionary<string, BoardUnit> playerUnits, RoundState roundState, 
 			string currentGamePhase, DiceState diceState, int currentPlayerNumber)
         {
             _playerUnits = playerUnits;
@@ -25,7 +26,7 @@ namespace BoardGameFramework
 			CurrentPlayerNumber = currentPlayerNumber;
         }
 
-        public IDictionary<string, Unit> PlayerUnits => _playerUnits;
+        public IDictionary<string, BoardUnit> PlayerUnits => _playerUnits;
         public RoundState RoundState => _roundState;
 
 

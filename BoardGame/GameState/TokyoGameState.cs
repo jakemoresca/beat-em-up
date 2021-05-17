@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using BoardGameFramework;
 using BoardGameFramework.Dices;
+using BoardGameFramework.Boards;
 
 namespace ProjectTokyo
 {
@@ -11,7 +12,7 @@ namespace ProjectTokyo
 			Score = 0;
 		}
 
-		public TokyoGameState(IDictionary<string, Unit> playerUnits, 
+		public TokyoGameState(IDictionary<string, BoardUnit> playerUnits, 
 			RoundState roundState, 
 			string currentGamePhase, 
 			DiceState diceState,
