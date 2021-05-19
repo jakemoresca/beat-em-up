@@ -5,8 +5,8 @@ namespace BoardGameFramework.Dices
 {
 	public class Dice : Node2D
 	{
-		[Export]
-		private string DiceName;
+		//[Export]
+		//private string DiceName;
 
 		private Button _rollButton;
 		private Sprite _sprite;
@@ -18,6 +18,7 @@ namespace BoardGameFramework.Dices
 		private const string VISIBLE_COLOR = "ffffffff";
 		private BoardGameManager _gameManager;
 		private string _listenerName;
+		DiceState _currentDiceState;
 
 		public override void _Ready()
 		{
@@ -54,7 +55,7 @@ namespace BoardGameFramework.Dices
 				return;
 			}
 
-			if(diceState.CurrentDice != Name || !diceState.DicesData.TryGetValue(Name, out var diceData))
+			if(!diceState.DicesData.TryGetValue(diceState.CurrentDice, out var diceData))
 				return;
 
 			var diceManager = _gameManager.GetDiceManager();
