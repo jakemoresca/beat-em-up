@@ -13,7 +13,7 @@ namespace ProjectTokyo
 		public override void _Ready()
 		{
 			var gameState = new TokyoGameState();
-			_gameManager = (FrameworkBoardGameManager)GetNode("/root/BoardGameFramework/BoardGameManager");
+			_gameManager = (FrameworkBoardGameManager)GetNode("/root/FrameworkBoardGameManager");
 			_gameManager.StartBoardGame(gameState);
 		}
 

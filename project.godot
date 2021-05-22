@@ -16,7 +16,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-BoardGameManager="*res://BoardGame/BoardGameManager.cs"
+FrameworkBoardGameManager="*res://BoardGameFramework/BoardGameManager.cs"
 
 [physics]
 
