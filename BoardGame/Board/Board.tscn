@@ -1,0 +1,6 @@
+[gd_scene format=2]
+
+[node name="Board" type="Node2D"]
+
+[node name="Ground" type="TileMap" parent="."]
+format = 1
