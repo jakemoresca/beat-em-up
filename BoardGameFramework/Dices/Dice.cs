@@ -5,6 +5,12 @@ namespace BoardGameFramework.Dices
 {
 	public class Dice : Node2D
 	{
+		[Export]
+		private int WidthPerCell = 84;
+
+		[Export]
+		private int DisplayDicePosition = -84;
+
 		private Button _rollButton;
 		private Node2D _diceDisplays;
 		private float _currentTime;
@@ -62,8 +68,6 @@ namespace BoardGameFramework.Dices
 					diceDisplay.Free();
 				}
 
-				var widthPerCell = 84;
-
 				for (var x = 0; x < instanceCount; x++)
 				{
 					var diceDisplayScene = ResourceLoader.Load<PackedScene>(diceData.DicePath);
@@ -73,11 +77,11 @@ namespace BoardGameFramework.Dices
 						var diceDisplayInstance = (DiceDisplay)diceDisplayScene.Instance();
 						_diceDisplays.AddChild(diceDisplayInstance);
 
-						diceDisplayInstance.Position = new Vector2(x * widthPerCell, 0);
+						diceDisplayInstance.Position = new Vector2(x * WidthPerCell, 0);
 					}
 				}
 
-				_diceDisplays.Position = new Vector2(-84, 0);
+				_diceDisplays.Position = new Vector2(DisplayDicePosition, 0);
 				_isInitialized = true;
 
 				this.Show();
