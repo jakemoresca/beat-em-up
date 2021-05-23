@@ -7,9 +7,22 @@ namespace ProjectTokyo
 {
     public class TokyoGameState : GameState
     {
-        public TokyoGameState() : base()
+        public static TokyoGameState Create()
         { 
-			Score = 0;
+			var turnDice = new DiceData("TurnDice", "res://BoardGame/Dice/DiceDisplay.tscn", 
+				new [] { "Attack", "Energy", "Health" }, 
+				new [] {0, 0, 0}, 
+				new [] { "res://BoardGame/Dice/bite.png", "res://BoardGame/Dice/miss.png", "res://BoardGame/Dice/ok.svg" }, 
+				3);
+
+			var diceDictionary = new Dictionary<string, DiceData>
+			{
+				{ "TurnDice", turnDice }
+			};
+
+			var diceState = new DiceState(diceDictionary, string.Empty, DicePhase.Hidden, string.Empty);
+
+			return new TokyoGameState(new Dictionary<string, BoardUnit>(), new RoundState(0, 1), string.Empty, diceState, 1, 0);
 		}
 
 		public TokyoGameState(IDictionary<string, BoardUnit> playerUnits, 
@@ -19,7 +32,7 @@ namespace ProjectTokyo
 			int currentPlayerNumber,
 			int score) : base(playerUnits, roundState, currentGamePhase, diceState, currentPlayerNumber)
 		{
-			Score = score; 
+			Score = score;
 		}
 
         public int Score { get; } //Test state

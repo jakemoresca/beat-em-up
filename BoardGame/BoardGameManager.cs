@@ -12,9 +12,12 @@ namespace ProjectTokyo
 		// Called when the node enters the scene tree for the first time.
 		public override void _Ready()
 		{
-			var gameState = new TokyoGameState();
+			var gameState = TokyoGameState.Create();
 			_gameManager = (FrameworkBoardGameManager)GetNode("/root/FrameworkBoardGameManager");
 			_gameManager.StartBoardGame(gameState);
+
+			var diceManager = _gameManager.GetDiceManager();
+			diceManager.ShowDice("TurnDice");
 		}
 
 		//  // Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -5,13 +5,8 @@ namespace BoardGameFramework.Dices
 {
 	public class Dice : Node2D
 	{
-		//[Export]
-		//private string DiceName;
-
 		private Button _rollButton;
-		private Sprite _sprite;
-		private RichTextLabel _label;
-		private bool _rolled = false;
+		private Node2D _diceDisplays;
 		private float _currentTime;
 		private RandomNumberGenerator _random;
 		private const string HIDDEN_COLOR = "00ffffff";
@@ -19,20 +14,20 @@ namespace BoardGameFramework.Dices
 		private BoardGameManager _gameManager;
 		private string _listenerName;
 		DiceState _currentDiceState;
+		private bool _isInitialized = false;
 
 		public override void _Ready()
 		{
-			_gameManager = (BoardGameManager)GetNode("/root/BoardGameFramework/BoardGameManager");
+			_gameManager = (BoardGameManager)GetNode("/root/FrameworkBoardGameManager");
 
 			this.Hide();
-
-			_rollButton = this.GetNode<Button>("./Button");
-			_sprite = this.GetNode<Sprite>("./Sprite");
-			_label = this.GetNode<RichTextLabel>("./Label");
 
 			_random = new RandomNumberGenerator();
 			_random.Randomize();
 
+			_diceDisplays = GetNode<Node2D>("./Displays");
+
+			_rollButton = GetNode<Button>("./Button");
 			_rollButton.Connect("pressed", this, "_on_Button_pressed");
 
 			_listenerName = $"DICE_{this.GetInstanceId()}";
@@ -55,8 +50,38 @@ namespace BoardGameFramework.Dices
 				return;
 			}
 
-			if(!diceState.DicesData.TryGetValue(diceState.CurrentDice, out var diceData))
+			if (!diceState.DicesData.TryGetValue(diceState.CurrentDice, out var diceData))
 				return;
+
+			if (!_isInitialized)
+			{
+				var instanceCount = diceData.DiceInstances;
+
+				foreach (DiceDisplay diceDisplay in _diceDisplays.GetChildren())
+				{
+					diceDisplay.Free();
+				}
+
+				var widthPerCell = 84;
+
+				for (var x = 0; x < instanceCount; x++)
+				{
+					var diceDisplayScene = ResourceLoader.Load<PackedScene>(diceData.DicePath);
+
+					if (diceDisplayScene != null)
+					{
+						var diceDisplayInstance = (DiceDisplay)diceDisplayScene.Instance();
+						_diceDisplays.AddChild(diceDisplayInstance);
+
+						diceDisplayInstance.Position = new Vector2(x * widthPerCell, 0);
+					}
+				}
+
+				_diceDisplays.Position = new Vector2(-84, 0);
+				_isInitialized = true;
+
+				this.Show();
+			}
 
 			var diceManager = _gameManager.GetDiceManager();
 
@@ -68,13 +93,12 @@ namespace BoardGameFramework.Dices
 				var diceArtAngle = diceData.DiceArtAngles;
 				var diceNames = diceData.DiceNames;
 
-				var selectedIndex = _random.Randi() % diceArts.Length;
+				foreach (DiceDisplay diceDisplay in _diceDisplays.GetChildren())
+				{
+					var selectedIndex = _random.Randi() % diceArts.Length;
 
-				var texture = ResourceLoader.Load<Texture>(diceArts[selectedIndex]);
-				_sprite.Texture = texture;
-				_sprite.RotationDegrees = diceArtAngle[selectedIndex];
-
-				_label.BbcodeText = $"[center]{diceNames[selectedIndex]}[/center]";
+					diceDisplay.SetDiceData(diceArts[selectedIndex], diceNames[selectedIndex], diceArtAngle[selectedIndex]);
+				}
 
 				if (_currentTime >= 1000)
 				{
@@ -93,6 +117,7 @@ namespace BoardGameFramework.Dices
 				if (this.Modulate.ToHtml() == HIDDEN_COLOR)
 				{
 					diceManager.HideDice();
+					_isInitialized = false;
 				}
 			}
 		}

@@ -22,6 +22,7 @@ namespace BoardGameFramework
         {
             _playerUnits = playerUnits;
             _roundState = roundState;
+            DiceState = diceState;
             CurrentGamePhase = currentGamePhase;
 			CurrentPlayerNumber = currentPlayerNumber;
         }

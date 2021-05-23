@@ -28,13 +28,14 @@ namespace BoardGameFramework.Dices
 
     public class DiceData
     {
-        public DiceData(string name, string dicePath, string[] diceNames, int[] diceArtAngles, string[] diceArts)
+        public DiceData(string name, string dicePath, string[] diceNames, int[] diceArtAngles, string[] diceArts, int diceInstances = 1)
         {
             Name = name;
             DicePath = dicePath;
             DiceNames = diceNames;
             DiceArtAngles = diceArtAngles;
             DiceArts = diceArts;
+            DiceInstances = diceInstances;
         }
 
         public string Name { get; }
@@ -42,6 +43,7 @@ namespace BoardGameFramework.Dices
         public string[] DiceNames { get; }
         public int[] DiceArtAngles { get; }
         public string[] DiceArts { get; }
+        public int DiceInstances { get; }
     }
 
     public enum DicePhase
